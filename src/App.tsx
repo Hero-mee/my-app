@@ -326,6 +326,7 @@ const App: React.FC = () => {
   return (
     <div style={{ padding: 20 }}>
       <h1>GPTカロリー抽出テスト</h1>
+
 {/* ▼ 使い方ガイド */}
 <details open style={{
   margin: "12px 0 20px",
@@ -451,7 +452,44 @@ const App: React.FC = () => {
       </ul>
 
       <h2>目標設定</h2>
+      <div style={{ marginBottom: 10 }}>
+  <label>目標たんぱく質 (g)：</label>
+  <br />
+  <input
+    type="number"
+    value={pfcGrams.protein}
+    onChange={(e) =>
+      setPfcGrams({ ...pfcGrams, protein: Number(e.target.value) })
+    }
+    style={{ width: 80, marginRight: 10 }}
+  />
+</div>
 
+<div style={{ marginBottom: 10 }}>
+  <label>目標脂質 (g)：</label>
+  <br />
+  <input
+    type="number"
+    value={pfcGrams.fat}
+    onChange={(e) =>
+      setPfcGrams({ ...pfcGrams, fat: Number(e.target.value) })
+    }
+    style={{ width: 80, marginRight: 10 }}
+  />
+</div>
+
+<div style={{ marginBottom: 20 }}>
+  <label>目標炭水化物 (g)：</label>
+  <br />
+  <input
+    type="number"
+    value={pfcGrams.carbs}
+    onChange={(e) =>
+      setPfcGrams({ ...pfcGrams, carbs: Number(e.target.value) })
+    }
+    style={{ width: 80 }}
+  />
+</div>
       <div style={{ marginBottom: 10 }}>
         <label>1日の目標カロリー（kcal）：</label>
         <br />
