@@ -537,6 +537,42 @@ const App: React.FC = () => {
         </select>
       </div>
 
+{/* ▼ 目標PFC（g）を編集できるUIを追加 */}
+<div style={{ marginBottom: 10 }}>
+  <label>目標たんぱく質 (g)：</label>
+  <br />
+  <input
+    type="number"
+    value={pfcGrams.protein}
+    onChange={(e) => setPfcGrams({ ...pfcGrams, protein: Number(e.target.value) })}
+    style={{ width: 80, marginRight: 10 }}
+  />
+</div>
+
+<div style={{ marginBottom: 10 }}>
+  <label>目標脂質 (g)：</label>
+  <br />
+  <input
+    type="number"
+    value={pfcGrams.fat}
+    onChange={(e) => setPfcGrams({ ...pfcGrams, fat: Number(e.target.value) })}
+    style={{ width: 80, marginRight: 10 }}
+  />
+</div>
+
+<div style={{ marginBottom: 20 }}>
+  <label>目標炭水化物 (g)：</label>
+  <br />
+  <input
+    type="number"
+    value={pfcGrams.carbs}
+    onChange={(e) => setPfcGrams({ ...pfcGrams, carbs: Number(e.target.value) })}
+    style={{ width: 80 }}
+  />
+</div>
+{/* ▲ 目標PFC UI ここまで */}
+
+
       <div style={{ marginBottom: 20 }}>
         <label>この食事はいつの食事ですか？：</label>
         <br />
