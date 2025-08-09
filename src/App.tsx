@@ -1,4 +1,19 @@
 import React, { useMemo, useState } from "react";
+// iOS Safari のダークモード検出
+const prefersDark =
+  typeof window !== "undefined" &&
+  window.matchMedia &&
+  window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+// 使い方ガイド用スタイル
+const guideCardStyle: React.CSSProperties = {
+  margin: "12px 0 20px",
+  padding: "12px 14px",
+  background: prefersDark ? "#111827" : "#fafafa",  // 背景色
+  border: `1px solid ${prefersDark ? "#334155" : "#e5e7eb"}`, // 枠線色
+  borderRadius: 12,
+  color: "inherit", // 文字色は継承
+};
 
 // =====================
 // Types
@@ -122,22 +137,7 @@ const App: React.FC = () => {
   const today = todayISO();
   const totalToday = useMemo(() => getTotalForDate(today), [dailyRecords, today]);
 
-// iOS Safari のダークモード検出
-const prefersDark =
-  typeof window !== "undefined" &&
-  window.matchMedia &&
-  window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-// 使い方ガイドのカード用スタイル
-const guideCardStyle: React.CSSProperties = {
-  margin: "12px 0 20px",
-  padding: "12px 14px",
-  background: prefersDark ? "#111827" : "#fafafa",     // ← ダーク時は濃いグレー
-  border: `1px solid ${prefersDark ? "#334155" : "#e5e7eb"}`,
-  borderRadius: 12,
-  color: "inherit",                                     // ← 文字色は継承
-};
-
+  
   // =====================
   // API呼び出し（注意: 本番はサーバー側に秘匿してください）
   // =====================
@@ -344,27 +344,7 @@ const guideCardStyle: React.CSSProperties = {
       <h1>GPTカロリー抽出テスト</h1>
 
 {/* ▼ 使い方ガイド */}
-<details
-  open
-  style={{
-    margin: "12px 0 20px",
-    padding: "12px 14px",
-    background:
-      typeof window !== "undefined" &&
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "#111827" // ダークモード時の背景
-        : "#fafafa", // ライトモード時の背景
-    border:
-      typeof window !== "undefined" &&
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "1px solid #334155" // ダーク時の枠線
-        : "1px solid #e5e7eb", // ライト時の枠線
-    borderRadius: 12,
-    color: "inherit", // 文字色は継承
-  }}
->
+<details open style={guideCardStyle}>
   <summary
     style={{
       cursor: "pointer",
