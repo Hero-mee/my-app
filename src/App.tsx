@@ -150,21 +150,15 @@ const App: React.FC = () => {
 
     setLoading(true);
 
-    const prompt = `\n${"${inputText}"}\n`; // そのままの仕様を踏襲（実際は不要なテンプレ文字は削るのが安全）
+    const prompt = `\n${inputText}\n`; // そのままの仕様を踏襲（実際は不要なテンプレ文字は削るのが安全）
 
     try {
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
+      const response = await fetch("/api/chat", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ prompt }),
+});
 
-        },
-        body: JSON.stringify({
-          model: "gpt-3.5-turbo",
-          messages: [{ role: "user", content: prompt }],
-        }),
-      });
 
       const data = await response.json();
       const message: string | undefined = data?.choices?.[0]?.message?.content;
@@ -238,18 +232,11 @@ const App: React.FC = () => {
     const prompt = `以下の文章から、食材ごとに以下の情報をJSON形式で抽出してください：\n\n[\n  {\n    "材料名": "○○",\n    "数量": "○○",\n    "重量": "○○g",\n    "カロリー": "○○kcal",\n    "たんぱく質": "○○g",\n    "脂質": "○○g",\n    "炭水化物": "○○g"\n  }\n]\n\nなお、「数量」が「1枚」「1個」など曖昧な場合は、おおよそのg数（重量）を推定して「重量」に記載してください。\nカロリーと栄養素は、重量に応じて推定してください。\n\n文章：\n"${inputText}"`;
 
     try {
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
-
-        },
-        body: JSON.stringify({
-          model: "gpt-4.1-mini",
-          messages: [{ role: "user", content: prompt }],
-        }),
-      });
+     const response = await fetch("/api/chat", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ prompt }),
+});
 
       const data = await response.json();
       const message: string | undefined = data?.choices?.[0]?.message?.content;
@@ -482,31 +469,7 @@ const App: React.FC = () => {
   />
 </div>
 
-<div style={{ marginBottom: 10 }}>
-  <label>目標脂質 (g)：</label>
-  <br />
-  <input
-    type="number"
-    value={pfcGrams.fat}
-    onChange={(e) =>
-      setPfcGrams({ ...pfcGrams, fat: Number(e.target.value) })
-    }
-    style={{ width: 80, marginRight: 10 }}
-  />
-</div>
 
-<div style={{ marginBottom: 20 }}>
-  <label>目標炭水化物 (g)：</label>
-  <br />
-  <input
-    type="number"
-    value={pfcGrams.carbs}
-    onChange={(e) =>
-      setPfcGrams({ ...pfcGrams, carbs: Number(e.target.value) })
-    }
-    style={{ width: 80 }}
-  />
-</div>
       <div style={{ marginBottom: 10 }}>
         <label>1日の目標カロリー（kcal）：</label>
         <br />
